@@ -58,8 +58,8 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnIniciar"
-        android:text="@string/texto_reiniciar"
+        android:id="@+id/btnReiniciar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="@string/texto_reiniciar" />
 </LinearLayout>

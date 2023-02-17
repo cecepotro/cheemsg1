@@ -3,8 +3,16 @@ package mx.itson.cheems;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public int ubicacion = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -12,6 +20,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         iniciar();
+
+        Button btnReiniciar = (Button)findViewById(R.id.btnReiniciar);
+        btnReiniciar.setOnClickListener(this);
+
+        for(int i =1; i<=6;i++){
+            ImageButton btnSeleccion = (ImageButton) findViewById((
+                    getResources().getIdentifier("opcion"+ i, "id", this.getPackageName())));
+            btnSeleccion.setOnClickListener(this);
+        }
     }
 
     public void iniciar(){
@@ -22,6 +39,49 @@ public class MainActivity extends AppCompatActivity {
         (findViewById(R.id.opcion5)).setBackgroundResource(R.drawable.icon_pregunta);
         (findViewById(R.id.opcion6)).setBackgroundResource(R.drawable.icon_pregunta);
 
+        Random random = new Random();
+        ubicacion = random.nextInt(5)+1;
+
+
     }
 
+    public void destapar(int opcion){
+        if(opcion ==ubicacion){
+
+            Toast.makeText(this, "¡PERMDISTE!", Toast.LENGTH_LONG).show();;
+
+            for(int i = 1; i<=6; i++){
+                ImageButton btnSeleccion = (ImageButton) findViewById((
+                        getResources().getIdentifier("opcion"+ i, "id", this.getPackageName())));
+                if(i == opcion){
+                    btnSeleccion.setBackgroundResource(R.drawable.icon_cheems_llora);
+                }else {
+                    btnSeleccion.setBackgroundResource(R.drawable.icon_cheems);
+                }
+            }
+        }else{
+            ImageButton btnSeleccion = (ImageButton) findViewById((
+                    getResources().getIdentifier("opcion"+ opcion, "id", this.getPackageName())));
+            btnSeleccion.setBackgroundResource(R.drawable.icon_cheems);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.opcion1){
+            destapar(1);
+        } else if(view.getId() == R.id.opcion2){
+            destapar(2);
+        }else if(view.getId() == R.id.opcion3){
+            destapar(3);
+        }else if(view.getId() == R.id.opcion4){
+            destapar(4);
+        }else if(view.getId() == R.id.opcion5){
+            destapar(5);
+        }else if(view.getId() == R.id.opcion6){
+            destapar(6);
+        } else if(view.getId() == R.id.btnReiniciar){
+            iniciar();
+        }
+    }
 }
