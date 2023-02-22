@@ -2,7 +2,10 @@ package mx.itson.cheems;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -47,7 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void destapar(int opcion){
         if(opcion ==ubicacion){
-
+            Vibrator vibrador = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            long[] patronVibracion = new long[]{0, 200, 150, 200, 150, 200};
+            vibrador.vibrate(VibrationEffect.createWaveform(patronVibracion, -1));
             Toast.makeText(this, "¡PERMDISTE!", Toast.LENGTH_LONG).show();;
 
             for(int i = 1; i<=6; i++){
@@ -60,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }else{
+            Vibrator vibrador = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrador.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE));
+
+
             ImageButton btnSeleccion = (ImageButton) findViewById((
                     getResources().getIdentifier("opcion"+ opcion, "id", this.getPackageName())));
             btnSeleccion.setBackgroundResource(R.drawable.icon_cheems);
